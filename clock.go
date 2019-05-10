@@ -78,10 +78,6 @@ func SetAutoTime() error {
 		return err
 	}
 
-	// Force time sync
-	exec.Command("systemctl", "stop", "ntpd").Run()
-	exec.Command("ntpdate", "-s", "0.develer.pool.ntp.org").Run()
-	exec.Command("systemctl", "start", "ntpd").Run()
 
 	return nil
 }
