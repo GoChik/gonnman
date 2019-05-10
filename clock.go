@@ -78,8 +78,30 @@ func SetAutoTime() error {
 		return err
 	}
 
-
 	return nil
+}
+
+func SetTimezone(timezone string) error {
+	ck, err := DBusClock()
+	if err != nil {
+		return err
+	}
+	if err := ck.Set("TimezoneUpdates", "manual"); err != nil {
+		return err
+	}
+	if err := ck.Set("Timezone", timezone); err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetTimezone() (string, error) {
+	ck, err := DBusClock()
+	if err != nil {
+		return "", err
+	}
+	method, err := ck.Get("Timezone")
+	return method.(string), err
 }
 
 func GetTimeMethod() (string, error) {
